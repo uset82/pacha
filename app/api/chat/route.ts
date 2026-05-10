@@ -5,7 +5,8 @@ import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client for server-side operations
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+if (!supabaseUrl.startsWith('http')) supabaseUrl = 'https://placeholder.supabase.co';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder_key';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -111,7 +112,8 @@ Always verify if the user needs further assistance after providing information.`
     const fullMessages = [systemMessage, ...messages];
 
     // Using openrouter/auto or a specific model
-    const client = new OpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
+    const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API;
+    const client = new OpenRouter({ apiKey });
     const result = await callModel(client, {
       model: 'openai/gpt-4o-mini',
       input: fullMessages,
