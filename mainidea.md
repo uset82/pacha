@@ -19,6 +19,7 @@ Build a luxurious, high-end restaurant website and lightweight management platfo
   - **Foodora:** Deep link / partner URL for delivery (no scraping; explicit outbound CTA).
   - **Reservations:** First-party booking form → writes to Supabase (pending/confirmed workflow in v1 or v1.1).
   - **Media:** **Supabase Storage** for dish and hero images; serve via optimized Next.js `Image` + caching.
+  - **AI Chatbot:** Integrated using `@openrouter/agent` (OpenRouter Agent SDK) to handle customer inquiries seamlessly.
 
 ### Deploy & config notes
 - Environment variables on Netlify for Supabase URL, anon key, and **service role only in server-only contexts** (never exposed to the browser).
@@ -65,6 +66,13 @@ Editorial luxury: deep surfaces (near-black, charcoal, or deep emerald) + restra
 - **Menu:** Server-rendered listing (names, descriptions, prices, images) from Supabase for SEO.
 - **Booking:** Date, time, party size, contact — persisted in Supabase; email or dashboard notification as a follow-up enhancement.
 - **Delivery:** Foodora CTA in nav + hero.
+- **AI Chat Assistant:** A smart chat widget powered by the OpenRouter Agent SDK (`@openrouter/agent`). This agent is capable of:
+  - Booking table reservations.
+  - General communication with the restaurant.
+  - Checking current opening hours.
+  - Providing prices and menu details.
+  - Filing customer complaints.
+  - Offering personalized food recommendations.
 
 ### Owner admin (CMS)
 - **Auth:** Email magic link or password — Supabase Auth; only allowed roles see `/admin`.
