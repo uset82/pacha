@@ -15,7 +15,7 @@ export function FeaturedDishes({ items }: { items: MenuItem[] }) {
             <h2 className="section-title">Food with heat, polish, and memory.</h2>
           </div>
           <p className="max-w-2xl text-lg leading-8 text-mist md:justify-self-end">
-            The first menu pass uses real restaurant photography already in the project. Owner uploads can replace every image and price from the CMS.
+            Grilled plates, Peruvian specials, and generous international dishes served with warm evening hospitality.
           </p>
         </div>
 

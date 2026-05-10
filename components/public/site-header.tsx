@@ -1,17 +1,31 @@
 import { Menu, Utensils } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { siteDetails } from "@/lib/site";
 
 export function SiteHeader({ foodoraUrl }: { foodoraUrl: string }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-ivory/10 bg-ink/60 backdrop-blur-md">
-      <div className="site-shell flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="focus-ring flex items-center gap-3 rounded-full">
-          <span className="grid size-11 place-items-center rounded-full border border-brass/50 bg-ink font-display text-lg font-semibold text-brass">
-            PC
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-ivory/10 bg-ink/85 backdrop-blur-md">
+      <div className="site-shell flex h-[76px] items-center justify-between gap-4">
+        <Link href="/" className="focus-ring flex items-center gap-4 rounded-sm" aria-label={siteDetails.name}>
+          <span className="relative size-12 shrink-0 overflow-hidden rounded-sm bg-ink ring-1 ring-brass/25">
+            <Image
+              src={siteDetails.logoPath}
+              alt=""
+              fill
+              sizes="48px"
+              className="scale-125 object-contain"
+            />
           </span>
-          <span className="font-display text-xl font-semibold text-ivory">{siteDetails.shortName}</span>
+          <span className="leading-none">
+            <span className="block font-display text-2xl font-semibold text-ivory">
+              {siteDetails.displayName}
+            </span>
+            <span className="mt-1 hidden text-[0.58rem] font-bold uppercase tracking-[0.24em] text-brass sm:block">
+              {siteDetails.descriptor}
+            </span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-medium text-ivory/80 md:flex">

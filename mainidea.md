@@ -1,13 +1,13 @@
-# TaskIntent: Pacha International Food
+# TaskIntent: Pasha International Food & Bar
 
 ## Vision
 
-Build a luxurious, high-end restaurant website and lightweight management platform for **Pacha International Food**. The public site must feel premium and fast; the owner must be able to update pictures, descriptions, menu items, and prices without developers.
+Build a luxurious, high-end restaurant website and lightweight management platform for **Pasha International Food & Bar**. The public site must feel premium and fast; the owner must be able to update pictures, descriptions, menu items, and prices without developers.
 
 **Location:** Strandgaten 85, Bergen, Norway, 5004
 **Phone:** 949 87 665
-**Email:** pacha.international.food@gmail.com
-**Social:** @pachainternationalfood
+**Email:** pasha.international.food@gmail.com
+**Social:** @pashainternationalfood
 
 supabase Pacha@123456789"@
 
@@ -48,12 +48,12 @@ Editorial luxury: deep surfaces (near-black, charcoal, or deep emerald) + restra
 
 1. **Hero (identity & promise):** Full-bleed hero — atmosphere or signature dish.
 
-   - *Headline:* Pacha International Food
+   - *Headline:* Pasha International Food & Bar
    - *Support:* A luxurious culinary journey in Bergen.
    - *Primary actions:* Book a table · Order via Foodora
 2. **Menu / specials (editorial, not “card grid spam”):** Signature dishes with large imagery and short, confident copy (CMS-driven). Example placeholders:
 
-   - *Pacha lamb:* Grilled lamb with rice or crispy potatoes, salad, house vinaigrette.
+   - *Pasha lamb:* Grilled lamb with rice or crispy potatoes, salad, house vinaigrette.
    - *Peruvian lomo saltado:* Authentic Peruvian flavors — highlight when featured.
    - *Turkish börek:* Traditional pastry.
    - *Peruvian empanadas:* Weekend / Sunday special when available.

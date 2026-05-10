@@ -22,7 +22,7 @@ export default function LoginPage() {
         </Link>
         <div className="mb-6">
           <p className="eyebrow mb-3">Owner access</p>
-          <h1 className="font-display text-5xl font-semibold text-ivory">Sign in to Pacha.</h1>
+          <h1 className="font-display text-5xl font-semibold text-ivory">Sign in to Pasha.</h1>
           <p className="mt-4 text-sm leading-6 text-mist">
             Magic links are restricted by the `admin_users` table after Supabase is connected.
           </p>

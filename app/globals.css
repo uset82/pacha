@@ -8,8 +8,8 @@
   --color-mist: #d6cab2;
   --color-brass: #caa15a;
   --color-terracotta: #a24f33;
-  --font-display: var(--font-pacha-display);
-  --font-sans: var(--font-pacha-sans);
+  --font-display: var(--font-pasha-display);
+  --font-sans: var(--font-pasha-sans);
 }
 
 @layer base {
@@ -25,7 +25,7 @@
     margin: 0;
     background: #070706;
     color: #f7f0df;
-    font-family: var(--font-pacha-sans), Arial, sans-serif;
+    font-family: var(--font-pasha-sans), Arial, sans-serif;
     text-rendering: optimizeLegibility;
   }
 
@@ -59,11 +59,11 @@
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.22em] text-brass;
+    @apply text-xs font-bold uppercase tracking-[0.24em] text-brass;
   }
 
   .section-title {
-    @apply font-display text-4xl font-semibold leading-tight text-ivory md:text-6xl;
+    @apply font-display text-4xl font-semibold leading-[1.02] tracking-normal text-ivory md:text-6xl;
   }
 
   .field {

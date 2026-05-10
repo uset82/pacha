@@ -4,7 +4,7 @@ import { getMenuItems } from "@/lib/data/menu";
 
 export const metadata: Metadata = {
   title: "Menu",
-  description: "Explore the Pacha International Food menu in Bergen.",
+  description: "Explore the Pasha International Food & Bar menu in Bergen.",
 };
 
 export default async function MenuPage() {
@@ -17,7 +17,7 @@ export default async function MenuPage() {
           <p className="eyebrow mb-4">Menu</p>
           <h1 className="section-title">International comfort, grilled plates, and Peruvian specials.</h1>
           <p className="mt-6 text-lg leading-8 text-mist">
-            Prices and availability can be updated by the owner from the admin dashboard.
+            A focused menu of warm plates, house favorites, and specials for relaxed dining in Bergen.
           </p>
         </div>
         <div className="mt-14">

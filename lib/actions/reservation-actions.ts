@@ -61,5 +61,5 @@ export async function createReservation(
   }
 
   revalidatePath("/admin/reservations");
-  return { ok: true, message: "Reservation requested. Pacha will confirm your table soon." };
+  return { ok: true, message: "Reservation requested. Pasha will confirm your table soon." };
 }

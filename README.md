@@ -1,6 +1,6 @@
-# Pacha International Food
+# Pasha International Food & Bar
 
-Next.js App Router website and lightweight owner CMS for Pacha International Food in Bergen.
+Next.js App Router website and lightweight owner CMS for Pasha International Food & Bar in Bergen.
 
 Package manager: npm.
 

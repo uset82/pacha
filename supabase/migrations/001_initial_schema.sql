@@ -57,7 +57,7 @@ create table if not exists public.reservations (
 
 create table if not exists public.site_settings (
   id text primary key default 'main' check (id = 'main'),
-  hero_headline text not null default 'Pacha International Food',
+  hero_headline text not null default 'Pasha International Food & Bar',
   hero_subcopy text not null default 'A luxurious culinary journey in Bergen.',
   foodora_url text not null default 'https://www.foodora.no/',
   opening_hours text not null default 'Daily 12:00-22:00',

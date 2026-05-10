@@ -1,4 +1,4 @@
-# Pacha — Detail Task Plan
+# Pasha — Detail Task Plan
 
 Companion to [`mainidea.md`](./mainidea.md).
 
@@ -74,7 +74,7 @@ You can check boxes directly in the editor; Markdown preview often toggles them 
 - [x] Hero motion: fade-in; optional subtle parallax/Ken Burns with reduced-motion fallback
 - [x] Editorial **featured dishes** section (pull `featured` items from DB)
 - [x] **Atmosphere & location** block (Strandgaten 85, hours, experience copy)
-- [x] Footer: phone, email, social `@pachainternationalfood`, booking link, Foodora
+- [x] Footer: phone, email, social `@pashainternationalfood`, booking link, Foodora
 
 ### Menu (`/menu` or section)
 

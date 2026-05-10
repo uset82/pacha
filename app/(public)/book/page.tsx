@@ -4,7 +4,7 @@ import { siteDetails } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Book a Table",
-  description: "Request a reservation at Pacha International Food in Bergen.",
+  description: "Request a reservation at Pasha International Food & Bar in Bergen.",
 };
 
 export default function BookPage() {
@@ -13,7 +13,7 @@ export default function BookPage() {
       <div className="site-shell grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
         <div className="sticky top-28">
           <p className="eyebrow mb-4">Reservations</p>
-          <h1 className="section-title">Book a table at Pacha.</h1>
+          <h1 className="section-title">Book a table at Pasha.</h1>
           <p className="mt-6 text-lg leading-8 text-mist">
             Send a request for your preferred date and time. The team will confirm by phone or email.
           </p>

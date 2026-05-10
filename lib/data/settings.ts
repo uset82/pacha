@@ -1,4 +1,4 @@
-import { fallbackSettings } from "@/lib/site";
+import { applyCurrentBranding, fallbackSettings } from "@/lib/site";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import type { SiteSettings } from "@/lib/types";
 
@@ -6,7 +6,7 @@ export async function getSiteSettings() {
   const supabase = createSupabasePublicClient();
 
   if (!supabase) {
-    return fallbackSettings;
+    return applyCurrentBranding(fallbackSettings);
   }
 
   const { data, error } = await supabase
@@ -17,8 +17,8 @@ export async function getSiteSettings() {
 
   if (error) {
     console.error("Failed to load site settings", error.message);
-    return fallbackSettings;
+    return applyCurrentBranding(fallbackSettings);
   }
 
-  return (data || fallbackSettings) as SiteSettings;
+  return applyCurrentBranding((data || fallbackSettings) as SiteSettings);
 }

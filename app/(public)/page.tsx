@@ -15,7 +15,7 @@ export default async function HomePage() {
       <LocationSection settings={settings} />
       <section className="bg-ink py-20">
         <div className="site-shell text-center">
-          <p className="eyebrow mb-4">Tonight at Pacha</p>
+          <p className="eyebrow mb-4">Tonight at Pasha</p>
           <h2 className="mx-auto max-w-3xl font-display text-4xl font-semibold text-ivory md:text-6xl">
             Reserve a quiet table or take the food home.
           </h2>

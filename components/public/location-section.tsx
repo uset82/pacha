@@ -11,7 +11,7 @@ export function LocationSection({ settings }: { settings: SiteSettings }) {
         <div className="relative min-h-[520px] overflow-hidden rounded-md">
           <Image
             src="/images/empanadas.jpg"
-            alt="Peruvian empanadas served at Pacha International Food"
+            alt="Peruvian empanadas served at Pasha International Food & Bar"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
             className="object-cover"

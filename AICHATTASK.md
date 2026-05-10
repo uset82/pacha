@@ -34,7 +34,7 @@ This is the detailed, markable task plan for building and integrating the `@open
 ## Phase 5: Integration & Testing
 - [x] Embed the `<ChatWidget />` globally in the Next.js root `layout.tsx`.
 - [x] Test Flow 1: Ask for opening hours and general restaurant information.
-- [x] Test Flow 2: Ask for the price of "Pacha Lamb" and other menu items.
+- [x] Test Flow 2: Ask for the price of "Pasha Lamb" and other menu items.
 - [x] Test Flow 3: Complete a table reservation booking through the chat.
 - [x] Test Flow 4: Submit a test complaint and verify it appears in the Supabase database.
 - [x] Test Flow 5: Ask for a vegetarian/special recommendation to test the agent's logic.

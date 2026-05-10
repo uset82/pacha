@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { siteDetails } from "@/lib/site";
 import { ChatWidget } from "@/components/ChatWidget";
 
-const display = Playfair_Display({
+const display = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-pacha-display",
+  weight: ["500", "600", "700"],
+  variable: "--font-pasha-display",
   display: "swap",
 });
 
-const sans = Inter({
+const sans = Manrope({
   subsets: ["latin"],
-  variable: "--font-pacha-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-pasha-sans",
   display: "swap",
 });
 
@@ -30,8 +32,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/pacha-mark.svg",
-    apple: "/pacha-mark.svg",
+    icon: "/images/pashalogo.jpg",
+    apple: "/images/pashalogo.jpg",
   },
 };
 

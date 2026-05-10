@@ -14,20 +14,29 @@ export function HomeHero({ settings }: { settings: SiteSettings }) {
         alt=""
         fill
         sizes="100vw"
-        className="hero-image-motion object-cover opacity-80"
+        className="hero-image-motion object-cover object-[62%_50%] opacity-90"
         priority
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,0.93)_0%,rgba(7,7,6,0.72)_40%,rgba(7,7,6,0.25)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,0.98)_0%,rgba(7,7,6,0.92)_34%,rgba(7,7,6,0.55)_68%,rgba(7,7,6,0.18)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,6,0.4)_0%,rgba(7,7,6,0.02)_34%,rgba(7,7,6,0.92)_100%)]" />
 
-      <div className="site-shell relative flex min-h-[92svh] items-end pb-16 pt-36 md:pb-20">
-        <div className="max-w-3xl reveal-up">
+      <div className="site-shell relative flex min-h-[92svh] items-end pb-14 pt-32 md:pb-20">
+        <div className="max-w-2xl reveal-up">
           <p className="eyebrow mb-5">Strandgaten 85 · Bergen</p>
-          <h1 className="font-display text-5xl font-semibold leading-[0.95] text-ivory md:text-7xl lg:text-8xl">
-            {settings.hero_headline}
+          <h1
+            aria-label={siteDetails.name}
+            className="font-display text-7xl font-semibold leading-[0.78] text-ivory md:text-[9rem] lg:text-[11rem]"
+          >
+            {siteDetails.displayName}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-mist md:text-xl">{settings.hero_subcopy}</p>
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-5 flex max-w-lg items-center gap-4">
+            <span className="h-px flex-1 bg-brass/70" aria-hidden="true" />
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-brass md:text-sm">
+              {siteDetails.descriptor}
+            </p>
+          </div>
+          <p className="mt-7 max-w-lg text-lg leading-8 text-mist md:text-xl">{settings.hero_subcopy}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <ButtonLink href="/book">
               Book a table
               <ArrowRight className="size-4" />

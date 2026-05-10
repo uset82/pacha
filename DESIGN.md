@@ -1,4 +1,4 @@
-# Pacha Design System
+# Pasha Design System
 
 ## Overview
 Editorial luxury for a Bergen restaurant: deep charcoal and emerald surfaces, warm brass accents, real food photography, calm spacing, and restrained motion. The site should feel like an intimate dining invitation, not a generic booking product.

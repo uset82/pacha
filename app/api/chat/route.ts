@@ -26,13 +26,13 @@ const getMenuPricesTool = tool({
   name: 'getMenuPrices',
   description: 'Queries the menu to get details and prices of dishes. Use this to provide prices or check if a dish exists.',
   inputSchema: z.object({
-    query: z.string().describe('The name of the dish or category to search for (e.g. "Pacha Lamb", "Empanadas")')
+    query: z.string().describe('The name of the dish or category to search for (e.g. "Pasha Lamb", "Empanadas")')
   }),
   execute: async ({ query }) => {
     // In a real scenario, this would query the Supabase menu table
     // For now, return the mocked luxurious items from the brief:
     const mockMenu = [
-      { name: 'Pacha Lamb', description: 'Grilled lamb served with rice or crispy potatoes, accompanied by a fresh salad and homemade vinaigrette.', price: '349 NOK' },
+      { name: 'Pasha Lamb', description: 'Grilled lamb served with rice or crispy potatoes, accompanied by a fresh salad and homemade vinaigrette.', price: '349 NOK' },
       { name: 'Peruansk Lomo Saltado', description: 'Authentic Peruvian flavors.', price: '289 NOK' },
       { name: 'Tyrkisk Börek', description: 'Traditional Turkish pastry.', price: '149 NOK' },
       { name: 'Peruansk Empanadas', description: 'Delicious Sunday special.', price: '129 NOK' }
@@ -55,17 +55,16 @@ const bookReservationTool = tool({
   }),
   execute: async ({ name, email, date, time, party_size }) => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('reservations')
-        .insert([{ name, email, date, time, party_size }])
-        .select();
+        .insert([{ name, email, date, time, party_size }]);
       
       if (error) {
         console.error("Supabase Error:", error);
         return { success: false, error: "Database error, but we have noted your request." };
       }
       return { success: true, message: `Reservation confirmed for ${party_size} people on ${date} at ${time}.` };
-    } catch (err) {
+    } catch {
       // Fallback if Supabase is not properly configured yet
       return { success: true, message: `[Simulated] Reservation confirmed for ${party_size} people on ${date} at ${time}.` };
     }
@@ -82,17 +81,16 @@ const fileComplaintTool = tool({
   }),
   execute: async ({ name, email, message }) => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('complaints')
-        .insert([{ name, email, message }])
-        .select();
+        .insert([{ name, email, message }]);
         
       if (error) {
          console.error("Supabase Error:", error);
          return { success: false, error: "Could not save to database." };
       }
       return { success: true, message: 'Your complaint has been filed and the management will review it shortly.' };
-    } catch (err) {
+    } catch {
        return { success: true, message: '[Simulated] Your complaint has been filed.' };
     }
   },
@@ -126,8 +124,9 @@ Always verify if the user needs further assistance after providing information.`
       role: 'assistant',
       content: text
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Chat API Error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Unknown chat API error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

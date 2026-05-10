@@ -9,7 +9,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
       <div className="site-shell grid gap-10 py-14 md:grid-cols-[1.3fr_0.7fr_0.7fr]">
         <div>
           <p className="eyebrow mb-4">Visit</p>
-          <h2 className="font-display text-4xl font-semibold text-ivory">{siteDetails.name}</h2>
+          <h2 className="max-w-md font-display text-4xl font-semibold leading-tight text-ivory">{siteDetails.name}</h2>
           <p className="mt-4 max-w-md text-mist">{siteDetails.location}</p>
           <div className="mt-7 flex flex-wrap gap-3">
             <ButtonLink href="/book">Book a table</ButtonLink>

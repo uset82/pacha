@@ -49,7 +49,7 @@ export function ChatWidget() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 p-4 bg-yellow-600 hover:bg-yellow-500 text-white rounded-full shadow-lg transition-transform transform hover:scale-105 z-50 ${isOpen ? 'hidden' : 'flex'}`}
+        className={`fixed bottom-6 right-6 p-4 bg-brass hover:bg-ivory text-ink rounded-full shadow-lg transition-transform transform hover:scale-105 z-50 ${isOpen ? 'hidden' : 'flex'}`}
         aria-label="Open Chat"
       >
         <MessageSquare size={24} />
@@ -61,7 +61,7 @@ export function ChatWidget() {
           {/* Header */}
           <div className="bg-zinc-950 px-4 py-4 border-b border-zinc-800 flex justify-between items-center">
             <div>
-              <h3 className="text-yellow-600 font-serif text-lg leading-none">Pasha Concierge</h3>
+              <h3 className="font-display text-xl font-semibold leading-none text-brass">Pasha Concierge</h3>
               <p className="text-zinc-500 text-xs mt-1">We typically reply instantly</p>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-white transition-colors">
@@ -74,10 +74,10 @@ export function ChatWidget() {
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`flex gap-3 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-yellow-600" : "bg-zinc-800"}`}>
-                    {msg.role === "user" ? <User size={16} className="text-white" /> : <Bot size={16} className="text-yellow-500" />}
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-brass" : "bg-zinc-800"}`}>
+                    {msg.role === "user" ? <User size={16} className="text-ink" /> : <Bot size={16} className="text-brass" />}
                   </div>
-                  <div className={`p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-yellow-600/10 text-yellow-50" : "bg-zinc-800 text-zinc-200 whitespace-pre-wrap"}`}>
+                  <div className={`p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-brass/10 text-ivory" : "bg-zinc-800 text-zinc-200 whitespace-pre-wrap"}`}>
                     {msg.content}
                   </div>
                 </div>
@@ -87,7 +87,7 @@ export function ChatWidget() {
               <div className="flex justify-start">
                 <div className="flex gap-3 max-w-[85%]">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 bg-zinc-800">
-                    <Loader2 size={16} className="text-yellow-500 animate-spin" />
+                    <Loader2 size={16} className="text-brass animate-spin" />
                   </div>
                   <div className="p-3 rounded-2xl bg-zinc-800 text-zinc-400 text-sm flex items-center">
                     Typing...
@@ -106,13 +106,13 @@ export function ChatWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about our menu or book a table..."
-                className="w-full bg-zinc-900 text-white rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-yellow-600 placeholder-zinc-500"
+                className="w-full bg-zinc-900 text-white rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-brass placeholder-zinc-500"
                 disabled={isLoading}
               />
               <button 
                 type="submit" 
                 disabled={isLoading || !input.trim()}
-                className="absolute right-2 p-2 bg-yellow-600 hover:bg-yellow-500 disabled:bg-zinc-700 disabled:text-zinc-500 text-white rounded-full transition-colors"
+                className="absolute right-2 p-2 bg-brass hover:bg-ivory disabled:bg-zinc-700 disabled:text-zinc-500 text-ink rounded-full transition-colors"
               >
                 <Send size={16} />
               </button>

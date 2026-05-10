@@ -1,15 +1,18 @@
 import type { SiteSettings } from "@/lib/types";
 
 export const siteDetails = {
-  name: "Pacha International Food",
-  shortName: "Pacha",
+  name: "Pasha International Food & Bar",
+  shortName: "Pasha",
+  displayName: "PASHA",
+  descriptor: "International Food & Bar",
+  logoPath: "/images/pashalogo.jpg",
   location: "Strandgaten 85, 5004 Bergen, Norway",
   phone: "949 87 665",
   phoneHref: "tel:+4794987665",
-  email: "pacha.international.food@gmail.com",
-  emailHref: "mailto:pacha.international.food@gmail.com",
-  socialHandle: "@pachainternationalfood",
-  instagramUrl: "https://www.instagram.com/pachainternationalfood/",
+  email: "pasha.international.food@gmail.com",
+  emailHref: "mailto:pasha.international.food@gmail.com",
+  socialHandle: "@pashainternationalfood",
+  instagramUrl: "https://www.instagram.com/pashainternationalfood/",
 };
 
 export const fallbackSettings: SiteSettings = {
@@ -23,6 +26,20 @@ export const fallbackSettings: SiteSettings = {
   created_at: new Date(0).toISOString(),
   updated_at: new Date(0).toISOString(),
 };
+
+export function applyCurrentBranding(settings: SiteSettings): SiteSettings {
+  const headline = settings.hero_headline.trim();
+
+  if (headline === "Pacha" || headline === "Pacha International Food" || headline === "Pacha International Food & Bar") {
+    return { ...settings, hero_headline: siteDetails.name };
+  }
+
+  return {
+    ...settings,
+    hero_headline: settings.hero_headline.replaceAll("Pacha", siteDetails.shortName),
+    hero_subcopy: settings.hero_subcopy.replaceAll("Pacha", siteDetails.shortName),
+  };
+}
 
 export const reservationTimes = [
   "12:00",
