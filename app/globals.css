@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #070706;
+  --color-charcoal: #14120f;
+  --color-emerald: #10231c;
+  --color-ivory: #f7f0df;
+  --color-mist: #d6cab2;
+  --color-brass: #caa15a;
+  --color-terracotta: #a24f33;
+  --font-display: var(--font-pacha-display);
+  --font-sans: var(--font-pacha-sans);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: #070706;
+    color: #f7f0df;
+    font-family: var(--font-pacha-sans), Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    outline-color: #caa15a;
+  }
+
+  ::selection {
+    background: #caa15a;
+    color: #070706;
+  }
+}
+
+@layer components {
+  .site-shell {
+    width: min(1120px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+
+  .admin-shell {
+    width: min(1180px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-brass;
+  }
+
+  .section-title {
+    @apply font-display text-4xl font-semibold leading-tight text-ivory md:text-6xl;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-mist/25 bg-ink/70 px-4 py-3 text-sm text-ivory shadow-inner shadow-black/20 transition placeholder:text-mist/45 focus:border-brass focus:outline-none;
+  }
+
+  .label {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-mist/75;
+  }
+
+  .admin-panel {
+    @apply rounded-lg border border-mist/15 bg-charcoal/80 p-5 shadow-2xl shadow-black/10;
+  }
+
+  .status-pill {
+    @apply inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em];
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-image-motion {
+    animation: hero-ken-burns 18s ease-out forwards;
+  }
+
+  .reveal-up {
+    animation: reveal-up 700ms ease-out both;
+  }
+
+  .slow-reveal {
+    animation: reveal-up 900ms 140ms ease-out both;
+  }
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
