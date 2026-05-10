@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <a
           href="#main"
           className="focus-ring fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-brass px-4 py-2 text-sm font-semibold text-ink transition focus:translate-y-0"
