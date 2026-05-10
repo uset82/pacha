@@ -12,10 +12,10 @@ export function FeaturedDishes({ items }: { items: MenuItem[] }) {
         <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
           <div className="slow-reveal">
             <p className="eyebrow mb-4">Signature plates</p>
-            <h2 className="section-title">Food with heat, polish, and memory.</h2>
+            <h2 className="section-title">A luxurious culinary journey.</h2>
           </div>
           <p className="max-w-2xl text-lg leading-8 text-mist md:justify-self-end">
-            Grilled plates, Peruvian specials, and generous international dishes served with warm evening hospitality.
+            Authentic Peruvian specials, traditional Turkish flavors, and generous international dishes served with warm Bergen hospitality.
           </p>
         </div>
 
