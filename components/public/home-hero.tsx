@@ -22,7 +22,10 @@ export function HomeHero({ settings }: { settings: SiteSettings }) {
 
       <div className="site-shell relative flex min-h-[92svh] items-end pb-14 pt-32 md:pb-20">
         <div className="max-w-2xl reveal-up">
-          <p className="eyebrow mb-5">Strandgaten 85 · Bergen</p>
+          <p className="eyebrow mb-5 leading-none" aria-label="Strandgaten 85, Bergen">
+            <span aria-hidden="true" className="block">Strandgaten 85</span>
+            <span aria-hidden="true" className="mt-2 block">Bergen</span>
+          </p>
           <h1
             aria-label={siteDetails.name}
             className="font-display text-7xl font-semibold leading-[0.78] text-ivory md:text-[9rem] lg:text-[11rem]"
