@@ -1,6 +1,9 @@
 [build]
-  command = "npm run build"
+  command = "npx next build --webpack"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[plugins]]
+  package = "./netlify/plugins/copy-next-middleware-runtime"
