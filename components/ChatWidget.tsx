@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, User, Bot, Loader2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,8 +78,22 @@ export function ChatWidget() {
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-brass" : "bg-zinc-800"}`}>
                     {msg.role === "user" ? <User size={16} className="text-ink" /> : <Bot size={16} className="text-brass" />}
                   </div>
-                  <div className={`p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-brass/10 text-ivory" : "bg-zinc-800 text-zinc-200 whitespace-pre-wrap"}`}>
-                    {msg.content}
+                  <div className={`p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-brass/10 text-ivory" : "bg-zinc-800 text-zinc-200"}`}>
+                    {msg.role === "user" ? (
+                      <div className="whitespace-pre-wrap">{msg.content}</div>
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
+                          li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                          strong: ({node, ...props}) => <strong className="font-semibold text-brass" {...props} />
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               </div>
