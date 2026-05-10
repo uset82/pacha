@@ -179,40 +179,55 @@ values
   ('Torta tres leches', 'torta-tres-leches', 'Soft milk cake with a delicate finish for a calm, sweet close to dinner.', 95, 'Dessert', '/images/torta3leches.jpg', 'Slice of torta tres leches dessert', false, true, 50)
 on conflict (slug) do nothing;
 
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values (
-  'restaurant-media',
-  'restaurant-media',
-  true,
-  5242880,
-  array['image/jpeg', 'image/png', 'image/webp']
-)
-on conflict (id) do update
-set public = excluded.public,
-    file_size_limit = excluded.file_size_limit,
-    allowed_mime_types = excluded.allowed_mime_types;
+do $$
+begin
+  if to_regclass('storage.buckets') is not null and to_regclass('storage.objects') is not null then
+    execute $sql$
+      insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+      values (
+        'restaurant-media',
+        'restaurant-media',
+        true,
+        5242880,
+        array['image/jpeg', 'image/png', 'image/webp']
+      )
+      on conflict (id) do update
+      set public = excluded.public,
+          file_size_limit = excluded.file_size_limit,
+          allowed_mime_types = excluded.allowed_mime_types
+    $sql$;
 
-drop policy if exists "Public can read restaurant media" on storage.objects;
-create policy "Public can read restaurant media"
-on storage.objects for select
-to anon, authenticated
-using (bucket_id = 'restaurant-media');
+    execute 'drop policy if exists "Public can read restaurant media" on storage.objects';
+    execute $sql$
+      create policy "Public can read restaurant media"
+      on storage.objects for select
+      to anon, authenticated
+      using (bucket_id = 'restaurant-media')
+    $sql$;
 
-drop policy if exists "Admins can upload restaurant media" on storage.objects;
-create policy "Admins can upload restaurant media"
-on storage.objects for insert
-to authenticated
-with check (bucket_id = 'restaurant-media' and public.is_admin());
+    execute 'drop policy if exists "Admins can upload restaurant media" on storage.objects';
+    execute $sql$
+      create policy "Admins can upload restaurant media"
+      on storage.objects for insert
+      to authenticated
+      with check (bucket_id = 'restaurant-media' and public.is_admin())
+    $sql$;
 
-drop policy if exists "Admins can update restaurant media" on storage.objects;
-create policy "Admins can update restaurant media"
-on storage.objects for update
-to authenticated
-using (bucket_id = 'restaurant-media' and public.is_admin())
-with check (bucket_id = 'restaurant-media' and public.is_admin());
+    execute 'drop policy if exists "Admins can update restaurant media" on storage.objects';
+    execute $sql$
+      create policy "Admins can update restaurant media"
+      on storage.objects for update
+      to authenticated
+      using (bucket_id = 'restaurant-media' and public.is_admin())
+      with check (bucket_id = 'restaurant-media' and public.is_admin())
+    $sql$;
 
-drop policy if exists "Admins can delete restaurant media" on storage.objects;
-create policy "Admins can delete restaurant media"
-on storage.objects for delete
-to authenticated
-using (bucket_id = 'restaurant-media' and public.is_admin());
+    execute 'drop policy if exists "Admins can delete restaurant media" on storage.objects';
+    execute $sql$
+      create policy "Admins can delete restaurant media"
+      on storage.objects for delete
+      to authenticated
+      using (bucket_id = 'restaurant-media' and public.is_admin())
+    $sql$;
+  end if;
+end $$;

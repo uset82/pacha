@@ -18,5 +18,6 @@ pnpm-debug.log*
 *.tsbuildinfo
 *.log
 test-artifacts/
+supabase/.temp/
 Thumbs.db
 .DS_Store

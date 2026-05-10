@@ -1,5 +1,7 @@
 # Pasha International Food & Bar
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5d8c44b5-d679-43b5-b57d-ce3c83aa0256/deploy-status)](https://app.netlify.com/projects/pacharestaurant/deploys)
+
 Next.js App Router website and lightweight owner CMS for Pasha International Food & Bar in Bergen.
 
 Package manager: npm.
