@@ -18,6 +18,15 @@ export function resolveImageUrl(path: string | null | undefined, fallback = "/im
   return `${supabaseUrl.replace(/\/$/, "")}/storage/v1/object/public/${mediaBucket}/${path}`;
 }
 
+export function isStorageObjectPath(path: string | null | undefined): path is string {
+  return Boolean(
+    path &&
+      !path.startsWith("/") &&
+      !path.startsWith("http://") &&
+      !path.startsWith("https://"),
+  );
+}
+
 export function fileNameFromPath(path: string | null | undefined) {
   if (!path) {
     return "No image";

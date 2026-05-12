@@ -84,11 +84,26 @@ export function ChatWidget() {
                     ) : (
                       <ReactMarkdown
                         components={{
-                          p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                          ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
-                          ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
-                          li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                          strong: ({node, ...props}) => <strong className="font-semibold text-brass" {...props} />
+                          p: ({node, ...props}) => {
+                            void node;
+                            return <p className="mb-2 last:mb-0" {...props} />;
+                          },
+                          ul: ({node, ...props}) => {
+                            void node;
+                            return <ul className="list-disc ml-4 mb-2" {...props} />;
+                          },
+                          ol: ({node, ...props}) => {
+                            void node;
+                            return <ol className="list-decimal ml-4 mb-2" {...props} />;
+                          },
+                          li: ({node, ...props}) => {
+                            void node;
+                            return <li className="mb-1" {...props} />;
+                          },
+                          strong: ({node, ...props}) => {
+                            void node;
+                            return <strong className="font-semibold text-brass" {...props} />;
+                          }
                         }}
                       >
                         {msg.content}

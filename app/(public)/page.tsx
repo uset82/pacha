@@ -1,9 +1,28 @@
+import type { Metadata } from "next";
 import { FeaturedDishes } from "@/components/public/featured-dishes";
 import { HomeHero } from "@/components/public/home-hero";
 import { LocationSection } from "@/components/public/location-section";
 import { ButtonLink } from "@/components/ui/button";
 import { getFeaturedMenuItems } from "@/lib/data/menu";
 import { getSiteSettings } from "@/lib/data/settings";
+import { resolveImageUrl } from "@/lib/images";
+import { siteDetails } from "@/lib/site";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const image = resolveImageUrl(settings.og_image_path || settings.hero_image_path, "/images/polloalaparrila.jpg");
+
+  return {
+    title: `${siteDetails.name} | Bergen`,
+    description: settings.hero_subcopy,
+    openGraph: {
+      title: `${siteDetails.name} | Bergen`,
+      description: settings.hero_subcopy,
+      images: [image],
+      type: "website",
+    },
+  };
+}
 
 export default async function HomePage() {
   const [settings, featuredItems] = await Promise.all([getSiteSettings(), getFeaturedMenuItems()]);

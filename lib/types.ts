@@ -49,6 +49,16 @@ export type AdminUser = {
   created_at: string;
 };
 
+export type Complaint = {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  status: ReservationStatus;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -56,6 +66,16 @@ export type Database = {
         Row: AdminUser;
         Insert: Omit<AdminUser, "created_at"> & { created_at?: string };
         Update: Partial<Omit<AdminUser, "user_id">>;
+        Relationships: [];
+      };
+      complaints: {
+        Row: Complaint;
+        Insert: Omit<Complaint, "id" | "created_at" | "updated_at"> & {
+          id?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Omit<Complaint, "id" | "created_at" | "updated_at">>;
         Relationships: [];
       };
       menu_items: {
@@ -89,12 +109,7 @@ export type Database = {
       };
     };
     Views: Record<string, never>;
-    Functions: {
-      is_admin: {
-        Args: Record<string, never>;
-        Returns: boolean;
-      };
-    };
+    Functions: Record<string, never>;
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };

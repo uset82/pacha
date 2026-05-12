@@ -1,5 +1,10 @@
 export const mediaBucket = "restaurant-media";
 
+function cleanEnv(value: string | undefined) {
+  const trimmed = value?.trim();
+  return trimmed || undefined;
+}
+
 export function getSiteUrl() {
   return (
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -10,14 +15,21 @@ export function getSiteUrl() {
 }
 
 export function getSupabaseEnv() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  const url = cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const publishableKey = cleanEnv(
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
 
   if (!url || !publishableKey) {
     return null;
   }
 
   return { url, publishableKey };
+}
+
+export function getSupabaseSecretKey() {
+  return cleanEnv(process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY) || null;
 }
 
 export function isSupabaseConfigured() {

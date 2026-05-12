@@ -2,12 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { mediaBucket } from "@/lib/env";
+import { deleteStoredImage, uploadImageFromForm } from "@/lib/actions/media-actions";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { ActionState, MenuItem } from "@/lib/types";
-
-const maxImageSize = 5 * 1024 * 1024;
-const allowedImageTypes = ["image/jpeg", "image/png", "image/webp"];
 
 const menuSchema = z.object({
   name: z.string().trim().min(2, "Name is required."),
@@ -30,41 +27,6 @@ function slugify(value: string) {
 
 function checkboxValue(formData: FormData, key: string) {
   return formData.get(key) === "on";
-}
-
-async function uploadImageIfProvided(formData: FormData) {
-  const image = formData.get("image");
-
-  if (!(image instanceof File) || image.size === 0) {
-    return { path: null as string | null, error: null as string | null };
-  }
-
-  if (!allowedImageTypes.includes(image.type)) {
-    return { path: null, error: "Images must be JPG, PNG, or WebP." };
-  }
-
-  if (image.size > maxImageSize) {
-    return { path: null, error: "Images must be 5 MB or smaller." };
-  }
-
-  const supabase = await createSupabaseServerClient();
-
-  if (!supabase) {
-    return { path: null, error: "Supabase is not configured, so images cannot be uploaded yet." };
-  }
-
-  const safeName = image.name.toLowerCase().replace(/[^a-z0-9.]+/g, "-");
-  const path = `menu/${Date.now()}-${safeName}`;
-  const { error } = await supabase.storage.from(mediaBucket).upload(path, image, {
-    contentType: image.type,
-    upsert: false,
-  });
-
-  if (error) {
-    return { path: null, error: error.message };
-  }
-
-  return { path, error: null };
 }
 
 function menuPayloadFromForm(formData: FormData, imagePath: string | null) {
@@ -115,7 +77,7 @@ export async function createMenuItem(
     return { ok: false, message: "Supabase is not configured yet." };
   }
 
-  const upload = await uploadImageIfProvided(formData);
+  const upload = await uploadImageFromForm(supabase, formData, "image", "menu");
 
   if (upload.error) {
     return { ok: false, message: upload.error };
@@ -124,12 +86,14 @@ export async function createMenuItem(
   const payload = menuPayloadFromForm(formData, upload.path);
 
   if (payload.error || !payload.data) {
+    await deleteStoredImage(supabase, upload.path);
     return { ok: false, message: payload.error || "Check the menu item." };
   }
 
   const { error } = await supabase.from("menu_items").insert(payload.data);
 
   if (error) {
+    await deleteStoredImage(supabase, upload.path);
     return { ok: false, message: error.message };
   }
 
@@ -145,6 +109,7 @@ export async function updateMenuItem(
 ): Promise<ActionState> {
   const id = String(formData.get("id") || "");
   const existingImagePath = String(formData.get("existing_image_path") || "") || null;
+  const removeImage = checkboxValue(formData, "remove_image");
   const supabase = await createSupabaseServerClient();
 
   if (!id) {
@@ -155,22 +120,29 @@ export async function updateMenuItem(
     return { ok: false, message: "Supabase is not configured yet." };
   }
 
-  const upload = await uploadImageIfProvided(formData);
+  const upload = await uploadImageFromForm(supabase, formData, "image", "menu");
 
   if (upload.error) {
     return { ok: false, message: upload.error };
   }
 
-  const payload = menuPayloadFromForm(formData, upload.path || existingImagePath);
+  const imagePath = upload.path || (removeImage ? null : existingImagePath);
+  const payload = menuPayloadFromForm(formData, imagePath);
 
   if (payload.error || !payload.data) {
+    await deleteStoredImage(supabase, upload.path);
     return { ok: false, message: payload.error || "Check the menu item." };
   }
 
   const { error } = await supabase.from("menu_items").update(payload.data).eq("id", id);
 
   if (error) {
+    await deleteStoredImage(supabase, upload.path);
     return { ok: false, message: error.message };
+  }
+
+  if ((upload.path || removeImage) && existingImagePath !== imagePath) {
+    await deleteStoredImage(supabase, existingImagePath);
   }
 
   revalidatePath("/");
@@ -187,7 +159,13 @@ export async function deleteMenuItem(formData: FormData) {
     return;
   }
 
-  await supabase.from("menu_items").delete().eq("id", id);
+  const { data } = await supabase.from("menu_items").select("image_path").eq("id", id).maybeSingle();
+  const { error } = await supabase.from("menu_items").delete().eq("id", id);
+
+  if (!error) {
+    await deleteStoredImage(supabase, data?.image_path);
+  }
+
   revalidatePath("/");
   revalidatePath("/menu");
   revalidatePath("/admin/menu");

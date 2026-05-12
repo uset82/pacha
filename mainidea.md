@@ -9,8 +9,6 @@ Build a luxurious, high-end restaurant website and lightweight management platfo
 **Email:** pasha.international.food@gmail.com
 **Social:** @pashainternationalfood
 
-supabase Pacha@123456789"@
-
 ---
 
 ## 1. Architect Agent: Stack Selection (V1 Surface)

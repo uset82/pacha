@@ -43,6 +43,65 @@ export async function requestMagicLink(
   return { ok: true, message: "Check your email for the secure login link." };
 }
 
+export async function signInWithPassword(
+  _previousState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  const password = String(formData.get("password") || "");
+
+  if (!email || !email.includes("@")) {
+    return { ok: false, message: "Enter a valid owner email." };
+  }
+
+  if (!password) {
+    return { ok: false, message: "Enter the owner password." };
+  }
+
+  const supabase = await createSupabaseServerClient();
+
+  if (!supabase) {
+    return {
+      ok: false,
+      message: "Supabase is not configured yet. Add the environment variables before owner login.",
+    };
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error || !data.user) {
+    return { ok: false, message: error?.message || "Invalid email or password." };
+  }
+
+  const { data: admin, error: adminError } = await supabase
+    .from("admin_users")
+    .select("user_id, active")
+    .eq("user_id", data.user.id)
+    .eq("active", true)
+    .maybeSingle();
+
+  if (adminError) {
+    await supabase.auth.signOut();
+    return {
+      ok: false,
+      message: "Signed in, but the admin tables could not be read. Run the migrations and try again.",
+    };
+  }
+
+  if (!admin) {
+    await supabase.auth.signOut();
+    return {
+      ok: false,
+      message: "This email is not registered as an active owner.",
+    };
+  }
+
+  redirect("/admin");
+}
+
 export async function signOut() {
   const supabase = await createSupabaseServerClient();
   await supabase?.auth.signOut();

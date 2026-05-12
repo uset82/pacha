@@ -15,3 +15,5 @@ npm run dev
 ```
 
 The public site uses local restaurant images and fallback content until Supabase credentials are configured. Run the SQL in `supabase/migrations` in a Supabase project, add the environment variables, then create an admin user in `admin_users` for CMS access.
+
+For Supabase, set `NEXT_PUBLIC_SUPABASE_URL` and either `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` or the legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Netlify should use the same names. Server-only maintenance keys can use `SUPABASE_SECRET_KEY` or legacy `SUPABASE_SERVICE_ROLE_KEY`, but they are not required for the owner CMS.

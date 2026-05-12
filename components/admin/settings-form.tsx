@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { updateSiteSettings } from "@/lib/actions/admin-settings-actions";
 import { ActionMessage } from "@/components/ui/action-message";
+import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { SubmitButton } from "@/components/ui/submit-button";
 import type { SiteSettings } from "@/lib/types";
 
@@ -32,14 +33,20 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         </label>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="space-y-2">
-          <span className="label">Hero image path</span>
-          <input className="field" name="hero_image_path" defaultValue={settings.hero_image_path || ""} />
-        </label>
-        <label className="space-y-2">
-          <span className="label">OG image path</span>
-          <input className="field" name="og_image_path" defaultValue={settings.og_image_path || ""} />
-        </label>
+        <ImageUploadField
+          label="Hero image"
+          inputName="hero_image"
+          currentPath={settings.hero_image_path}
+          existingInputName="existing_hero_image_path"
+          removeInputName="remove_hero_image"
+        />
+        <ImageUploadField
+          label="Social preview image"
+          inputName="og_image"
+          currentPath={settings.og_image_path}
+          existingInputName="existing_og_image_path"
+          removeInputName="remove_og_image"
+        />
       </div>
       <ActionMessage state={state} />
       <SubmitButton pendingText="Updating settings...">Update settings</SubmitButton>

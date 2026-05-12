@@ -1,11 +1,11 @@
 "use client";
 
 import { useActionState } from "react";
-import { Trash2, Upload } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { createMenuItem, deleteMenuItem, updateMenuItem } from "@/lib/actions/admin-menu-actions";
 import { ActionMessage } from "@/components/ui/action-message";
+import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { fileNameFromPath } from "@/lib/images";
 import type { MenuItem } from "@/lib/types";
 
 const initialState = { ok: false, message: "" };
@@ -20,7 +20,6 @@ export function MenuItemForm({ item }: { item?: MenuItem }) {
         {item && (
           <>
             <input type="hidden" name="id" value={item.id} />
-            <input type="hidden" name="existing_image_path" value={item.image_path || ""} />
           </>
         )}
 
@@ -56,14 +55,13 @@ export function MenuItemForm({ item }: { item?: MenuItem }) {
         </div>
 
         <div className="grid gap-4 md:grid-cols-[1fr_1.2fr]">
-          <label className="space-y-2">
-            <span className="label inline-flex items-center gap-2">
-              <Upload className="size-4 text-brass" />
-              Image
-            </span>
-            <input className="field file:mr-4 file:rounded-full file:border-0 file:bg-brass file:px-4 file:py-2 file:text-sm file:font-semibold file:text-ink" name="image" type="file" accept="image/png,image/jpeg,image/webp" />
-            <span className="block text-xs text-mist/70">Current: {fileNameFromPath(item?.image_path)}</span>
-          </label>
+          <ImageUploadField
+            label="Dish image"
+            inputName="image"
+            currentPath={item?.image_path}
+            existingInputName="existing_image_path"
+            removeInputName="remove_image"
+          />
           <label className="space-y-2">
             <span className="label">Image alt text</span>
             <input className="field" name="image_alt" defaultValue={item?.image_alt || ""} />

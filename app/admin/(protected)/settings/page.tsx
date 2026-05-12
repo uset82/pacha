@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SettingsForm } from "@/components/admin/settings-form";
-import { getSiteSettings } from "@/lib/data/settings";
+import { getAdminSiteSettings } from "@/lib/data/settings";
 
 export const metadata: Metadata = {
   title: "Admin Settings",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminSettingsPage() {
-  const settings = await getSiteSettings();
+  const { settings, error } = await getAdminSiteSettings();
 
   return (
     <div className="space-y-8">
@@ -22,7 +22,13 @@ export default async function AdminSettingsPage() {
           Control the public hero, Foodora URL, hours, and social preview image.
         </p>
       </div>
-      <SettingsForm settings={settings} />
+      {error ? (
+        <div className="admin-panel border-terracotta/50 bg-terracotta/10 text-sm leading-6 text-ivory">
+          {error}
+        </div>
+      ) : (
+        <SettingsForm settings={settings} />
+      )}
     </div>
   );
 }

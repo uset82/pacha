@@ -1,13 +1,14 @@
 import { CalendarClock, CheckCircle2, EyeOff, Soup } from "lucide-react";
 import Link from "next/link";
-import { getMenuItems } from "@/lib/data/menu";
+import { getAdminMenuItems } from "@/lib/data/menu";
 import { getReservations } from "@/lib/data/reservations";
 
 export default async function AdminOverviewPage() {
-  const [menuItems, reservations] = await Promise.all([
-    getMenuItems({ includeInactive: true }),
+  const [menuResult, reservations] = await Promise.all([
+    getAdminMenuItems(),
     getReservations(),
   ]);
+  const menuItems = menuResult.items;
   const activeItems = menuItems.filter((item) => item.active).length;
   const hiddenItems = menuItems.length - activeItems;
   const pendingReservations = reservations.filter((reservation) => reservation.status === "requested").length;
@@ -28,6 +29,12 @@ export default async function AdminOverviewPage() {
           Manage menu publishing, booking requests, and public site settings from one compact admin surface.
         </p>
       </div>
+
+      {menuResult.error && (
+        <div className="admin-panel border-terracotta/50 bg-terracotta/10 text-sm leading-6 text-ivory">
+          {menuResult.error}
+        </div>
+      )}
 
       <div className="grid gap-4 md:grid-cols-4">
         {stats.map((stat) => {

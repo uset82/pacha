@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { MenuItemForm } from "@/components/admin/menu-item-form";
-import { getMenuItems } from "@/lib/data/menu";
+import { getAdminMenuItems } from "@/lib/data/menu";
 
 export const metadata: Metadata = {
   title: "Admin Menu",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminMenuPage() {
-  const items = await getMenuItems({ includeInactive: true });
+  const { items, error } = await getAdminMenuItems();
 
   return (
     <div className="space-y-8">
@@ -23,23 +23,33 @@ export default async function AdminMenuPage() {
         </p>
       </div>
 
-      <section>
-        <h2 className="mb-4 font-display text-3xl font-semibold">Create new item</h2>
-        <MenuItemForm />
-      </section>
+      {error && (
+        <div className="admin-panel border-terracotta/50 bg-terracotta/10 text-sm leading-6 text-ivory">
+          {error}
+        </div>
+      )}
 
-      <section className="space-y-4">
-        <h2 className="font-display text-3xl font-semibold">Existing items</h2>
-        {items.length === 0 ? (
-          <div className="admin-panel text-mist">No menu items yet.</div>
-        ) : (
-          <div className="space-y-5">
-            {items.map((item) => (
-              <MenuItemForm key={item.id} item={item} />
-            ))}
-          </div>
-        )}
-      </section>
+      {!error && (
+        <>
+          <section>
+            <h2 className="mb-4 font-display text-3xl font-semibold">Create new item</h2>
+            <MenuItemForm />
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="font-display text-3xl font-semibold">Existing items</h2>
+            {items.length === 0 ? (
+              <div className="admin-panel text-mist">No menu items yet.</div>
+            ) : (
+              <div className="space-y-5">
+                {items.map((item) => (
+                  <MenuItemForm key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+          </section>
+        </>
+      )}
     </div>
   );
 }
